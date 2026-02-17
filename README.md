@@ -12,7 +12,7 @@ Este trabalho apresenta uma análise exploratória e estrutural do Car Evaluatio
 ├── visualizaçao_dados.py        # Visualização e análise dos dados
 ├── clusterizaçao_gower.py       # Clusterização hierárquica 
 ├── Carr_dataset_ajustado.csv    # Dataset ajustado
-├── imagens_Car_Evaliation       # Imagens de resultados
+├── imagens_Car_Evaluation       # Imagens de resultados
 │   ├── boxplot_.png               # Boxplot buying
 │   ├── boxplot_2.png              # Boxplot doors
 │   ├── boxplot_3.png              # Boxplot safety
@@ -223,7 +223,7 @@ Além disso, a variável persons apresentou maior variabilidade, podendo contrib
 
 Nesta etapa foi feito uma visualização dos dados através de uma matriz de correlação e boxplots com o objetivo de entender as correlações presentes entre as variáveis.
 
-![Matriz de correlação ](matriz_correlacao.png)
+![Matriz de correlação ](imagens_Car_Evaluation/matriz_correlacao.png)
 
 Ao analisar a Matriz de correlação, percebe-se visualmente que:
 * A Variável alvo `class` é a unica visualmente correlacionada
@@ -245,7 +245,7 @@ De forma mais precisa, conseguimos análisar que essas variáveis são realmente
 Ao analisar as correlações com a variável alvo, percebe-se que a variável safety possue uma maior correlação enquanto o buying possue uma maior morrelação (negativa).
 
 
-![Boxplot buying x class ](/imagens_Car_Evaliation/boxplot_.png)
+![Boxplot buying x class ](imagens_Car_Evaluation/boxplot_.png)
 
 Ao analisarmos o boxplot do buying x class, Percebe-se que 
 * A classe 1 possue uma maior variáncia enquanto sua medianá fica em `3`.
@@ -253,11 +253,11 @@ Ao analisarmos o boxplot do buying x class, Percebe-se que
 * Na classe 3 e 4 percebe-se que seus valores variam entre `1 a 2`.
 Portando, concluimos visualmente que quanto maior o preço do carro, menor vai ser sua avaliação
 
-![Boxplot doors x class ](boxplot_2.png)
+![Boxplot doors x class ](imagens_Car_Evaluation/boxplot_2.png)
 
 Ao analisarmos o boxplot do doors x class, Percebe-se que não tem muita diferença entre o número de portar para que o carro seja avaliado como aceitavel ou não.
 
-![Boxplot safety x class ](boxplot_3.png)
+![Boxplot safety x class ](imagens_Car_Evaluation/boxplot_3.png)
 
 Ao analisarmos o boxplot do doors x class, Percebe-se 
 * A classe 1 possue uma concentração maior de safety entre 1 a 2
