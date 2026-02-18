@@ -1,6 +1,10 @@
 # Projeto de Análise Estrutural do Car Evaluation Dataset
 
-Este trabalho apresenta uma análise exploratória e estrutural do Car Evaluation Dataset, com foco na aplicação de técnicas de clusterização não supervisionada. O objetivo principal foi identificar agrupamentos naturais nos dados a partir de atributos categóricos, utilizando a distância de Gower para tratar adequadamente esse tipo de variável. Foram realizados pré-processamento, análise estatística, visualização dos dados e clusterização hierárquica. Os resultados demonstram que existem padrões significativos nos atributos avaliados, possibilitando a identificação de agrupamentos coerentes com as classes originais, em especial para a categoria “unacc”.
+Este trabalho tem como objetivo realizar uma análise exploratória do Car Evaluation Dataset, um conjunto de dados composto por variáveis categóricas que descrevem características de veículos e sua respectiva classificação.
+
+Inicialmente, foi realizado o pré-processamento das variáveis, respeitando sua natureza ordinal. Em seguida, aplicaram-se técnicas de estatística descritiva e visualizações gráficas para compreender a distribuição dos dados e suas relações com a variável alvo.
+
+Por fim, utilizou-se a clusterização hierárquica com distância de Gower para identificar agrupamentos naturais no conjunto de dados, sem considerar previamente a classe, permitindo analisar a estrutura interna dos padrões presentes.
 
 
 ---
@@ -272,9 +276,118 @@ Portanto, conclue-se que há uma correlação positiva, ou seja, quanto maior a 
 
 **Arquivo: clusterizacao.py**
 
+Para esta etapa, foi feita uma `Clusterização Hierárquica` utilizando a `Distancia de Gower` que é uma medida de dissimilaridade para conjuntos de dados que misturam tipos de variáveis (numéricas, categóricas, binárias), normalizando as diferenças entre pares de observações e calculando uma média ponderada.
+
+Ou seja, esta distância é ideal para estes dados que possuem uma origem categórica
+
+![Dendograma](imagens_Car_Evaluation/dendograma.png)
+
+Sobre este Dendograma, para encontrar os clusters, baseia-se em "cortar" a árvore em uma determinada altura para separar os grupos com base na similaridade. Quanto maior a distância vertical onde a linha horizontal (corte) é feita, mais distintos e diferentes são os clusters resultantes.
+
+A análise visual do dendrograma indicou uma divisão mais natural em 2 grandes grupos, antes da fusão em um único cluster.
+
+Tabela absoluta
+```
+| Cluster | acc | good | unacc | vgood |
+| ------- | --- | ---- | ----- | ----- |
+| 1       | 0   | 0    | 576   | 0     |
+| 2       | 384 | 69   | 634   | 65    |
+```
+Tabela percentual
+
+```
+| Cluster | acc    | good  | unacc  | vgood |
+| ------- | ------ | ----- | ------ | ----- |
+| 1       | 0%     | 0%    | 100%   | 0%    |
+| 2       | 33.33% | 5.99% | 55.03% | 5.64% |
+
+```
+
+**Interpretação dos clusters**
+
+Cluster 1:
+* 100% composto por veículos `unnac`
+* Grupo completamente Homogêneo .
+
+O algoritmo conseguiu identificar um grupo estruturalmente negativo, caracterizado por:
+* Baixa segurança
+* Alto custo
+* Combinações desfavoráveis de atributos
+
+Esse cluster representa o perfil mais claramente inaceitável do dataset.
+
+Cluster 2:
+* Grupo misto
+* 55% ainda são "unacc"
+* 33% são "acc"
+* Pequena presença de "good" e "vgood"
+
+Interpretação:
+* Este cluster representa um conjunto mais heterogêneo.
+
+Ele agrupa:
+* Veículos intermediários
+* Parte dos veículos inaceitáveis
+* Praticamente todos os veículos de melhor qualidade
+
+Isso indica que:
+* A separação perfeita entre todas as classes não é linear.
+* O dataset possui uma grande massa estrutural de "unacc", o que dificulta segmentação mais fina.
+
+**Interpretação Estrutural Mais Profunda**
+A clusterização com k = 2 revelou uma divisão principal:
+
+Grupo 1 → Perfil claramente inaceitável
+
+Grupo 2 → Perfil misto/intermediário
+
+Isso sugere que o dataset possui estrutura predominantemente binária:
+* Um grande bloco negativo bem definido
+* Um segundo bloco contendo os demais padrões
+
 ---
 
 ## 🧠 Conclusão
 
+Este projeto teve como objetivo realizar uma análise estrutural do Car Evaluation Dataset, utilizando técnicas de análise exploratória e clusterização hierárquica não supervisionada.
 
+A etapa de pré-processamento foi fundamental para garantir a correta representação das variáveis categóricas ordinais, preservando sua ordem semântica por meio de codificação manual. Essa escolha foi essencial para manter coerência na análise estatística e na aplicação da distância de Gower.
+
+A análise estatística revelou que:
+
+* As variáveis explicativas apresentam estrutura equilibrada, resultado da construção sistemática do dataset.
+
+* A variável alvo class é significativamente desbalanceada, com predominância da categoria unacc.
+
+* A variável safety apresenta a maior correlação positiva com a classe final.
+
+* A variável buying apresenta correlação negativa relevante com a avaliação do veículo.
+
+* A variável persons demonstrou maior variabilidade, podendo contribuir na diferenciação estrutural dos dados.
+
+A visualização por meio de boxplots confirmou padrões importantes:
+
+* Quanto maior o preço de compra (buying), menor tende a ser a avaliação.
+
+* O número de portas (doors) não apresenta influência significativa.
+
+* A variável safety possui relação direta e clara com a qualidade da avaliação.
+
+Na etapa de clusterização hierárquica, utilizando distância de Gower e método average linkage, o dendrograma indicou uma divisão estrutural mais natural em 2 grandes grupos.
+
+Os resultados mostraram que:
+
+* Um cluster é completamente composto por veículos classificados como unacc, evidenciando um padrão estrutural fortemente negativo.
+
+* O segundo cluster é heterogêneo, contendo todas as demais categorias e parte dos veículos inaceitáveis.
+
+Isso demonstra que o dataset possui uma estrutura predominantemente binária:
+
+* Um grande bloco de veículos claramente inaceitáveis.
+
+* Um bloco misto contendo veículos intermediários e superiores.
+
+A clusterização não supervisionada foi capaz de identificar essa divisão estrutural principal, mesmo sem utilizar a variável alvo no processo de agrupamento. Esse resultado reforça que existem padrões naturais nos dados que explicam a classificação final.
+
+De forma geral, o projeto evidencia como técnicas de análise estatística e clusterização podem revelar estruturas internas relevantes em conjuntos de dados categóricos, mesmo em cenários com desbalanceamento de classes.
 
