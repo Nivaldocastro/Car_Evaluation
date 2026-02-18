@@ -50,7 +50,7 @@ A variável alvo **class** possui quatro categorias:
 - good
 - vgood (very good)
 
-O dataset é totalmente categórico, tornando necessária a utilização de uma métrica apropriada para esse tipo de dado.
+O dataset é totalmente categórico, tornando necessária a utilização de métricas apropriadas para esse tipo de dado.
 
 ---
 
@@ -104,15 +104,15 @@ from sklearn.metrics import silhouette_score
 
 **Arquivo: preprocessamento.py**
 
-Para esta etapa, foi feito primeiramente a importação do dataset bruto usando a biblioteca pandas, com o objetivo de conhecer o dataset e fazer ajustes para poder fazer a análise estatistica, visualização de dados e clusterização.
+Para esta etapa, foi feita primeiramente a importação do dataset bruto usando a biblioteca pandas, com o objetivo de conhecer o dataset e fazer ajustes para poder realizar a análise estatistica, visualização de dados e clusterização.
 Observações importantes sobre o dataset:
-* Os nomes das colunas estavam ausentes, sendo preciso colocar manualmente tendo como referencia informações dentro da fonte obtida.
-* Sua estrutura é 100% categórica, ou seja, cata coluna possui rotulos como por exemplo: alto, medio ou baixo; ruim, moderado, bom ou muito bom, etc
-* Variaveis possuem uma natureza ordinal, ou seja, a codificação deve preservar a ordem lógica dessas categorias.
+* Os nomes das colunas estavam ausentes, sendo preciso colocar manualmente tendo como referência as informações dentro da fonte obtida.
+* Sua estrutura é 100% categórica, ou seja, cada coluna possui rótulos como por exemplo: alto, medio ou baixo; ruim, moderado, bom ou muito bom, etc
+* As variáveis possuem uma natureza ordinal, ou seja, a codificação deve preservar a ordem lógica dessas categorias.
 
-Contudo, após verificar valores nulos, dimenções do dataset, tipos das variaveis, o problema principal se resume em codificar os dados categóricos.
+Contudo, após verificar valores nulos, dimensões do dataset e tipos das variáveis, o problema principal se resume em codificar os dados categóricos.
 
-Para isso, é utilizado o `replace`, uma função simples que o objetivo é substituir as categóricas por numeros inteiros de forma manual que garante a ordem semântica das variáveis ordinais.
+Para isso, é utilizado o `replace`, uma função simples que o objetivo é substituir os dados categóricos por números inteiros de forma manual que garante a ordem semântica das variáveis ordinais.
 
 Essa estratégia foi escolhida porque:
 
@@ -120,18 +120,18 @@ Essa estratégia foi escolhida porque:
 * Evita distorções que poderiam ocorrer com codificação arbitrária.
 * Mantém coerência semântica entre os níveis.
 
-Concluindo, os dados pré-processados foram armazenados em um arquivo `Carr_dataset_ajustado.csv `.
+Concluindo, os dados pré-processados foram armazenados em um arquivo `Carr_dataset_ajustado.csv`.
 
 ## 📊 Análise Estatística
 
 **Arquivo: analise_estatistica.py**
 
-Esta etapa do projeto teve como objetivo realizar uma análise estatística descritiva do Car Evaluation, após o pré-processamento e a codificação das variáveis categóricas em valores numéricos ordinais.
+Esta etapa do projeto teve como objetivo realizar uma análise estatística descritiva do Car Evaluation Dataset, após o pré-processamento e a codificação das variáveis categóricas em valores numéricos ordinais.
 A análise buscou:
 * Compreender o comportamento das variáveis após o pré-processamento
 * Avaliar medidas de tendência central 
 
-**Medidas de Tendência Central e Disperção**
+**Medidas de Tendência Central e Dispersão**
 Foram calculadas média, mediana, moda, variância, desvio-padrão e amplitude para cada variável.
 ```
     Buying e Maint
@@ -146,11 +146,11 @@ Amplitude	        3
 
 
 
-Essas variáveis apresentam distribuição perfeitamente simétrica, com média centralizada no intervalo possível (1 a 4).
+Essas variáveis apresentam distribuição aproximadamente simétrica, com média centralizada no intervalo possível (1 a 4).
 
 A variância de 1.25 e o desvio-padrão de 1.12 indicam boa dispersão ao longo das categorias.
 
-Isso confirma que o dataset possui estrutura equilibrada nas variáveis explicativas, já que foi construído combinando sistematicamente todas as possibilidades de atributos.
+Isso confirma que o dataset apresenta estrutura equilibrada nas variáveis explicativas, já que foi construído combinando sistematicamente todas as possibilidades de atributos.
 
 ```
          Doors
@@ -230,8 +230,8 @@ Nesta etapa foi feito uma visualização dos dados através de uma matriz de cor
 ![Matriz de correlação ](imagens_Car_Evaluation/matriz_correlacao.png)
 
 Ao analisar a Matriz de correlação, percebe-se visualmente que:
-* A Variável alvo `class` é a unica visualmente correlacionada
-* As variáveis buying, maint, doors, persons, lug_boot e safety possuem uma correlação extremamente pequena, ou seja, seu valores são muito próximos de 0.
+* A Variável alvo `class` é a única visualmente correlacionada
+* As variáveis buying, maint, doors, persons, lug_boot e safety possuem uma correlação extremamente pequena, ou seja, seus valores são muito próximos de 0.
 ```
                 buying         maint  ...        safety     class
 buying    1.000000e+00 -2.072211e-15  ... -1.554300e-15 -0.282750
@@ -243,42 +243,42 @@ safety   -1.554300e-15 -2.588623e-16  ...  1.000000e+00  0.439337
 class    -2.827504e-01 -2.324215e-01  ...  4.393373e-01  1.000000
 
 ```
-De forma mais precisa, conseguimos análisar que essas variáveis são realmente possuem uma correlação quase 0 entre elas. 
+De forma mais precisa, conseguimos analisar que essas variáveis realmente possuem uma correlação quase 0 entre elas. 
 
 **Sobre a variável alvo**
-Ao analisar as correlações com a variável alvo, percebe-se que a variável safety possue uma maior correlação enquanto o buying possue uma maior morrelação (negativa).
+Ao analisar as correlações com a variável alvo, percebe-se que a variável safety apresenta a maior correlação positiva, enquanto a variável buying apresenta a maior correlação negativa.
 
 
 ![Boxplot buying x class ](imagens_Car_Evaluation/boxplot_.png)
 
-Ao analisarmos o boxplot do buying x class, Percebe-se que 
-* A classe 1 possue uma maior variáncia enquanto sua medianá fica em `3`.
-* Na classe 2 percebe-se uma mencentração por valores mais medianos.
+Ao analisarmos o boxplot do buying x class, percebe-se que que:
+* A classe 1 possui maior variância, enquanto sua mediana encontra-se em `3`.
+* Na classe 2 percebe-se uma concentração por valores mais medianos.
 * Na classe 3 e 4 percebe-se que seus valores variam entre `1 a 2`.
-Portando, concluimos visualmente que quanto maior o preço do carro, menor vai ser sua avaliação
+Portando, concluímos visualmente que quanto maior o preço do carro, menor vai ser sua avaliação
 
 ![Boxplot doors x class ](imagens_Car_Evaluation/boxplot_2.png)
 
-Ao analisarmos o boxplot do doors x class, Percebe-se que não tem muita diferença entre o número de portar para que o carro seja avaliado como aceitavel ou não.
+Ao analisarmos o boxplot do doors x class, Percebe-se que não tem muita diferença entre o número de portas para que o carro seja avaliado como aceitavel ou não.
 
 ![Boxplot safety x class ](imagens_Car_Evaluation/boxplot_3.png)
 
-Ao analisarmos o boxplot do doors x class, Percebe-se 
-* A classe 1 possue uma concentração maior de safety entre 1 a 2
-* A classe 2 e 3 possue uma variáncia mais concentrada entre 2 e 3
-* A classe 4 possue seus valores de safety em 3
-Portanto, conclue-se que há uma correlação positiva, ou seja, quanto maior a segurança do carro maior será a avaliação.
+Ao analisarmos o boxplot do safety x class, Percebe-se que:
+* A classe 1 possui uma concentração maior de safety entre 1 a 2
+* A classe 2 e 3 possui uma variáncia mais concentrada entre 2 e 3
+* A classe 4 possui seus valores de safety em 3
+Portanto, conclui-se que há uma correlação positiva, ou seja, quanto maior a segurança do carro maior será a avaliação.
 
 
 ---
 
 ## 🤖 Clusterização Hierárquica
 
-**Arquivo: clusterizacao.py**
+**Arquivo: clusterizacao_gower.py**
 
-Para esta etapa, foi feita uma `Clusterização Hierárquica` utilizando a `Distancia de Gower` que é uma medida de dissimilaridade para conjuntos de dados que misturam tipos de variáveis (numéricas, categóricas, binárias), normalizando as diferenças entre pares de observações e calculando uma média ponderada.
+Para esta etapa, foi feita uma `Clusterização Hierárquica` utilizando a `Distância de Gower`, que é uma medida de dissimilaridade para conjuntos de dados que misturam tipos de variáveis (numéricas, categóricas, binárias), normalizando as diferenças entre pares de observações e calculando uma média ponderada.
 
-Ou seja, esta distância é ideal para estes dados que possuem uma origem categórica
+Ou seja, esta distância é ideal para estes dados, que possui uma origem categórica
 
 ![Dendograma](imagens_Car_Evaluation/dendograma.png)
 
@@ -306,8 +306,8 @@ Tabela percentual
 **Interpretação dos clusters**
 
 Cluster 1:
-* 100% composto por veículos `unnac`
-* Grupo completamente Homogêneo .
+* 100% composto por veículos `unacc`
+* Grupo completamente homogêneo.
 
 O algoritmo conseguiu identificar um grupo estruturalmente negativo, caracterizado por:
 * Baixa segurança
@@ -332,7 +332,7 @@ Ele agrupa:
 
 Isso indica que:
 * A separação perfeita entre todas as classes não é linear.
-* O dataset possui uma grande massa estrutural de "unacc", o que dificulta segmentação mais fina.
+* O dataset apresenta uma grande massa estrutural de "unacc", o que dificulta segmentação mais fina.
 
 **Interpretação Estrutural Mais Profunda**
 A clusterização com k = 2 revelou uma divisão principal:
@@ -341,7 +341,7 @@ Grupo 1 → Perfil claramente inaceitável
 
 Grupo 2 → Perfil misto/intermediário
 
-Isso sugere que o dataset possui estrutura predominantemente binária:
+Isso sugere que o dataset apresenta uma estrutura predominantemente binária:
 * Um grande bloco negativo bem definido
 * Um segundo bloco contendo os demais padrões
 
